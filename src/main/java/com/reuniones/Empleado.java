@@ -28,7 +28,7 @@ public class Empleado implements Invitable {
         this.correo = correo;
 
         if (nombre == null || nombre.isEmpty()){
-            throw new EmpleadoSinCorreoException("El empleado debe tener un nombre válido. ");
+            throw new EmpleadoSinNombreException("El empleado debe tener un nombre válido. ");
         }
         if (correo == null || correo.isEmpty()){
             throw new EmpleadoSinCorreoException("El empleado debe tener un correo válido. ");
@@ -67,7 +67,7 @@ public class Empleado implements Invitable {
 
     @Override
     public String toString() {
-        return "[" + id + "]" + nombre + " " + apellidos + " <" + correo + ">";
+        return "[" + id + "] " + nombre + " " + apellidos + " <" + correo + ">";
     }
 
 }
