@@ -30,7 +30,7 @@ public class InvitadoExterno implements Invitable {
 
     @Override
     public String toString(){
-        return "Externo: " + nombreCompleto + "<" + correo + ">";
+        return "Externo: " + nombreCompleto + " <" + correo + ">";
     }
 
 
