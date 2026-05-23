@@ -14,12 +14,13 @@ public class Departamento implements Invitable {
      * @throws EmpleadoSinCorreoException si el nombre del departamento es null o vacío
      */
     public Departamento(String nombre, String correo) throws DepartamentoSinNombreException {
-        this.nombre = nombre;
-        this.empleados = new ArrayList<>();
-        this.correo = correo;
         if(nombre == null || nombre.isEmpty()){
             throw new DepartamentoSinNombreException("El departamento debe tener un nombre válido");
         }
+        this.nombre = nombre;
+        this.empleados = new ArrayList<>();
+        this.correo = correo;
+
     }
 
     /**

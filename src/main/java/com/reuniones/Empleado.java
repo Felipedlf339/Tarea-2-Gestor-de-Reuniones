@@ -22,17 +22,17 @@ public class Empleado implements Invitable {
      * @throws EmpleadoSinNombreException si el nombre es null o vacío
      */
     public Empleado(String id, String nombre, String apellidos, String correo) throws EmpleadoSinCorreoException, EmpleadoSinNombreException {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.correo = correo;
-
         if (nombre == null || nombre.isEmpty()){
             throw new EmpleadoSinNombreException("El empleado debe tener un nombre válido. ");
         }
         if (correo == null || correo.isEmpty()){
             throw new EmpleadoSinCorreoException("El empleado debe tener un correo válido. ");
         }
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correo = correo;
+
 
     }
 
