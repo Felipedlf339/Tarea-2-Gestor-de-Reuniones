@@ -2,13 +2,14 @@ package com.reuniones;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public abstract class Reunion {
-    private Date fecha;
-    private Instant horaPrevista;
+    private LocalDate fecha;
+    private LocalTime horaPrevista;
     private Duration duracionPrevista;
     private Instant horaInicio;
     private Instant horaFin;
@@ -19,7 +20,7 @@ public abstract class Reunion {
     private List<Nota> notas;
     private List<Retraso> retrasos;
 
-    public Reunion(Date fecha, Instant horaPrevista, Duration duracionPrevista, TipoReunion tipo, Empleado organizador) {
+    public Reunion(LocalDate fecha, LocalTime horaPrevista, Duration duracionPrevista, TipoReunion tipo, Empleado organizador) {
         this.fecha = fecha;
         this.horaPrevista = horaPrevista;
         this.duracionPrevista = duracionPrevista;
@@ -31,17 +32,27 @@ public abstract class Reunion {
         this.retrasos = new ArrayList<>();
     }
 
-    public void iniciar() {
+    public void iniciar() throws ReunionException {
+        if (this.horaInicio != null)
+        {
+            throw new ReunionException("La reunión ya ha comenzado.");
+        }
         this.horaInicio = Instant.now();
     }
 
-    public void finalizar() {
+    public void finalizar() throws ReunionException {
+        if (this.horaInicio == null) {
+            throw new ReunionException("No se puede finalizar si no ha comenzado.");
+        }
+        if (this.horaFin != null) {
+            throw new ReunionException("La reunión ya se ha finalizado.");
+        }
         this.horaFin = Instant.now();
     }
 
-    public float calcularTiempoReal() {
+    public float calcularTiempoReal() throws ReunionException {
         if (horaInicio == null || horaFin == null) {
-            return 0;
+            throw new ReunionException("La reunión no ha empezado o terminado.");
         }
         return Duration.between(horaInicio, horaFin).toMinutes();
     }
@@ -87,32 +98,57 @@ public abstract class Reunion {
         return (float) asistencias.size() / invitaciones.size() * 100;
     }
 
-    public void agregarInvitacion(Invitacion invitacion)
+    public void agregarInvitacion(Invitacion invitacion) throws ReunionException
     {
+        if (this.horaFin != null) {
+            throw new ReunionException("No se pueden enviar invitaciones si la reunión ya finalizó.");
+        }
+        for (Invitacion i : invitaciones) {
+            if (i.getInvitado().getCorreo().equals(invitacion.getInvitado().getCorreo())) {
+                throw new ReunionException("Ya se ha enviado una invitación.");
+            }
+        }
         invitaciones.add(invitacion);
         invitacion.getInvitado().invitar();
     }
 
-    public void invitarDepartamento(Departamento departamento)
+    public void invitarDepartamento(Departamento departamento) throws ReunionException
     {
-        if (departamento != null)
-        {
-            for (Empleado e : departamento.getEmpleados())
-            {
+        if (departamento != null) {
+            for (Empleado e : departamento.getEmpleados()) {
                 Invitacion nuevaInvitacion = new Invitacion(e);
                 this.agregarInvitacion(nuevaInvitacion);
             }
         }
     }
 
-    public void agregarAsistencia(Invitable participante)
+    public void agregarAsistencia(Invitable participante) throws ReunionException
     {
+        if (this.horaInicio == null) {
+            throw new ReunionException("No se puede anotar la asistencia si la reunión no ha comenzado.");
+        }
+        if (this.horaFin != null) {
+            throw new ReunionException("No se puede anotar la asistencia si la reunión ya finalizó.");
+        }
+        for (Asistencia a : asistencias) {
+            if (a.getParticipante().getCorreo().equals(participante.getCorreo())) {
+                throw new ReunionException("El participante ya esta anotado.");
+            }
+        }
         asistencias.add(new Asistencia(participante));
     }
 
-    public void agregarRetraso(Retraso retraso) {
+    public void agregarRetraso(Retraso retraso) throws ReunionException {
+        if (this.horaInicio == null)
+        {
+            throw new ReunionException("La reunión no ha comenzado, no pueden haber retrasos.");
+        }
+        if (this.horaFin != null)
+        {
+            throw new ReunionException("La reunión ha finalizado, no pueden haber retrasos.");
+        }
         retrasos.add(retraso);
-        asistencias.add(new Asistencia(retraso.getParticipante()));
+        this.agregarAsistencia(retraso.getParticipante());
     }
 
 
@@ -122,10 +158,10 @@ public abstract class Reunion {
 
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
-    public Instant getHoraPrevista() {
+    public LocalTime getHoraPrevista() {
         return horaPrevista;
     }
     public Duration getDuracionPrevista() {
@@ -150,10 +186,10 @@ public abstract class Reunion {
         return notas;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-    public void setHoraPrevista(Instant horaPrevista) {
+    public void setHoraPrevista(LocalTime horaPrevista) {
         this.horaPrevista = horaPrevista;
     }
     public void setDuracionPrevista(Duration duracionPrevista) {
