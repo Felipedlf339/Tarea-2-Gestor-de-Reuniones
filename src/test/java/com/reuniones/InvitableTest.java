@@ -17,7 +17,7 @@ class InvitableTest {
 
     @Test
     void testDepartamentoEsInvitable() throws DepartamentoSinNombreException {
-        Departamento dep = new Departamento("Marketing");
+        Departamento dep = new Departamento("Marketing", "marketing@empresa.com");
         assertTrue(dep instanceof Invitable);
     }
 
@@ -39,7 +39,7 @@ class InvitableTest {
 
     @Test
     void testDepartamentoPuedeInvitar() throws DepartamentoSinNombreException {
-        Invitable dep = new Departamento("Marketing");
+        Invitable dep = new Departamento("Marketing", "marketing@empresa.com");
         assertDoesNotThrow(() -> dep.invitar());
     }
 

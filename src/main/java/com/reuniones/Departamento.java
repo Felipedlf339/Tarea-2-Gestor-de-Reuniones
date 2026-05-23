@@ -5,18 +5,22 @@ import java.util.List;
 public class Departamento implements Invitable {
     private String nombre;
     private List<Empleado> empleados;
+    private String correo;
 
     /**
      * Constructor del Departamento
      * @param nombre nombre del departamento
+     * @param correo dirección de correo del departamento
      * @throws EmpleadoSinCorreoException si el nombre del departamento es null o vacío
      */
-    public Departamento(String nombre) throws DepartamentoSinNombreException {
-        this.nombre = nombre;
-        this.empleados = new ArrayList<>();
+    public Departamento(String nombre, String correo) throws DepartamentoSinNombreException {
         if(nombre == null || nombre.isEmpty()){
             throw new DepartamentoSinNombreException("El departamento debe tener un nombre válido");
         }
+        this.nombre = nombre;
+        this.empleados = new ArrayList<>();
+        this.correo = correo;
+
     }
 
     /**
@@ -42,6 +46,16 @@ public class Departamento implements Invitable {
             empleado.invitar();
         }
     }
+
+    /**
+     * @return correo del departamento
+     */
+    @Override
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {this.correo = correo;}
 
     public String getNombre() {return nombre;}
     public void setNombre(String nombre) {this.nombre = nombre;}
