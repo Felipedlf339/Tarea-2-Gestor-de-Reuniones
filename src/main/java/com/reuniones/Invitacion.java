@@ -56,6 +56,9 @@ public class Invitacion {
      */
     @Override
     public String toString() {
-        return "Invitación para: " + invitado.toString() + " || Invitación emitida a las: " + hora.toString();
+        if (invitado != null) {
+            return "Invitación para: " + invitado.toString() + " || Invitación emitida a las: " + hora.toString();
+        }
+        return "Invitación de participante desconocido || Invitación emitida a las: " + hora.toString();
     }
 }
