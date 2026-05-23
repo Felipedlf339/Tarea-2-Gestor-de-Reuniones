@@ -13,18 +13,27 @@ public class Empleado implements Invitable {
     private Departamento departamento;
 
     /**
-     * Constructor del empleado.
-     * @param id
-     * @param nombre
-     * @param apellidos
-     * @param correo
+     * Constructor del empleado
+     * @param id Identificador Unico
+     * @param nombre nombre del empleado
+     * @param apellidos apellido del empleado
+     * @param correo correo del empleado
+     * @throws EmpleadoSinCorreoException si el correo es null o vacío
+     * @throws EmpleadoSinNombreException si el nombre es null o vacío
      */
-
-    public Empleado(String id, String nombre, String apellidos, String correo) {
+    public Empleado(String id, String nombre, String apellidos, String correo) throws EmpleadoSinCorreoException, EmpleadoSinNombreException {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
+
+        if (nombre == null || nombre.isEmpty()){
+            throw new EmpleadoSinNombreException("El empleado debe tener un nombre válido. ");
+        }
+        if (correo == null || correo.isEmpty()){
+            throw new EmpleadoSinCorreoException("El empleado debe tener un correo válido. ");
+        }
+
     }
 
     /**
@@ -58,7 +67,7 @@ public class Empleado implements Invitable {
 
     @Override
     public String toString() {
-        return "[" + id + "]" + nombre + " " + apellidos + " <" + correo + ">";
+        return "[" + id + "] " + nombre + " " + apellidos + " <" + correo + ">";
     }
 
 }

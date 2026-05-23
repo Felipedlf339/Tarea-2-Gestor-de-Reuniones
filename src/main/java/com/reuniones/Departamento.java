@@ -7,12 +7,16 @@ public class Departamento implements Invitable {
     private List<Empleado> empleados;
 
     /**
-     * Constructor del departamento.
+     * Constructor del Departamento
      * @param nombre nombre del departamento
+     * @throws EmpleadoSinCorreoException si el nombre del departamento es null o vacío
      */
-    public Departamento(String nombre) {
+    public Departamento(String nombre) throws DepartamentoSinNombreException {
         this.nombre = nombre;
         this.empleados = new ArrayList<>();
+        if(nombre == null || nombre.isEmpty()){
+            throw new DepartamentoSinNombreException("El departamento debe tener un nombre válido");
+        }
     }
 
     /**
