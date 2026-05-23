@@ -11,7 +11,7 @@ public class EmpleadoTest {
     @BeforeEach
     void setUp() throws EmpleadoSinNombreException, EmpleadoSinCorreoException, DepartamentoSinNombreException{
         emp = new Empleado("E001", "Martin", "García", "margarcia@udec.cl");
-        dep =new Departamento("Desarrollo");
+        dep =new Departamento("Desarrollo", "desarrollo@empresa.com");
     }
     // Casos Normales
     @Test

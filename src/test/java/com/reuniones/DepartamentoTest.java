@@ -10,7 +10,7 @@ public class DepartamentoTest {
 
     @BeforeEach
     void setUp() throws DepartamentoSinNombreException {
-        dep = new Departamento("Marketing");
+        dep = new Departamento("Marketing", "marketing@empresa.com");
     }
 
     // Casos Normales
@@ -18,6 +18,11 @@ public class DepartamentoTest {
     @Test
     void testNombreSeGuardaCorrectamente() {
         assertEquals("Marketing", dep.getNombre());
+    }
+
+    @Test
+    void testCorreoSeGuardaCorrectamente() {
+        assertEquals("marketing@empresa.com", dep.getCorreo());
     }
 
     @Test
@@ -48,11 +53,11 @@ public class DepartamentoTest {
 
     @Test
     void testNombreNullLanzaExcepcion() {
-        assertThrows(DepartamentoSinNombreException.class, () -> new Departamento(null));
+        assertThrows(DepartamentoSinNombreException.class, () -> new Departamento(null, "nulo@empresa.com"));
     }
 
     @Test
     void testNombreVacioLanzaExcepcion() {
-        assertThrows(DepartamentoSinNombreException.class, () -> new Departamento(""));
+        assertThrows(DepartamentoSinNombreException.class, () -> new Departamento("", "vacio@empresa.com"));
     }
 }
