@@ -21,7 +21,7 @@ class InformeTest {
     String rutaArchivo = "informe_test.txt";
 
     @BeforeEach
-    void setUp() throws EmpleadoSinNombreException, EmpleadoSinCorreoException {
+    void setUp() throws EmpleadoSinNombreException, EmpleadoSinCorreoException, EnlaceInvalidoException {
         organizador = new Empleado("E001", "Felipa", "Garcia", "jaraveñav@udec.cl");
 
         reunion = new ReunionVirtual(
