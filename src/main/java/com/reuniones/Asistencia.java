@@ -6,42 +6,42 @@ package com.reuniones;
  */
 public class Asistencia {
 
-    private Empleado empleado;
+    private Invitable participante;
 
     /**
      * Constructor de la clase Asistencia
-     * Crea un nuevo registro de presencia para un empleado específico
-     * @param empleado El empleado que está registrando su asistencia a la reunión
+     * Crea un nuevo registro de presencia para un invitado específico
+     * @param participante El invitado que está registrando su asistencia a la reunión
      */
-    public Asistencia(Empleado empleado) {
-        this.empleado = empleado;
+    public Asistencia(Invitable participante) {
+        this.participante = participante;
     }
 
     /**
-     * Obtiene el empleado asociado a este registro de asistencia
-     * @return El objeto Empleado que asistió a la reunión
+     * Obtiene el participante asociado a este registro de asistencia
+     * @return El objeto Invitable que asistió a la reunión
      */
-    public Empleado getEmpleado() {
-        return empleado;
+    public Invitable getParticipante() {
+        return participante;
     }
 
     /**
-     * Modifica o asigna el empleado asociado a este registro de asistencia
-     * @param empleado El nuevo objeto Empleado que registrará su asistencia
+     * Modifica o asigna el invitado asociado a este registro de asistencia
+     * @param participante El nuevo objeto Invitable que registrará su asistencia
      */
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setParticipante(Invitable participante) {
+        this.participante = participante;
     }
 
     /**
      * Genera una representación en texto del registro de asistencia
-     * @return Una cadena de texto indicando la confirmación de asistencia y los datos del empleado
+     * @return Una cadena de texto indicando la confirmación de asistencia y los datos del participante
      */
     @Override
     public String toString() {
-        if (empleado != null) {
-            return "Asistencia confirmada de: " + empleado.getNombre() + " " + empleado.getApellidos();
+        if (participante != null) {
+            return "Asistencia confirmada de: " + participante.toString();
         }
-        return "Asistencia de empleado desconocido";
+        return "Asistencia de invitado desconocido";
     }
 }
