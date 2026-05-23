@@ -40,7 +40,7 @@ public class Asistencia {
     @Override
     public String toString() {
         if (participante != null) {
-            return "Asistencia confirmada de: " + participante.getNombre() + " " + participante.getApellidos();
+            return "Asistencia confirmada de: " + participante.toString();
         }
         return "Asistencia de invitado desconocido";
     }
