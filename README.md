@@ -18,7 +18,7 @@ departamentos e invitados externos, registrar asistencia y generar informes.
 
 ## Decisiones de diseño
 
-### 1.Interfaz `invitable`
+### 1.Interfaz `Invitable`
 Se definió la interfaz `Invitable` con el método `invitar()` para representar
 cualquier entidad que pueda ser invitada a una reunión. Esto permite tratar
 a `Empleado`, `Departamento` e `InvitadoExterno` de forma uniforme, sin
@@ -59,3 +59,11 @@ o faltantes en la creación de objetos:
 - `SalaInvalidaException` — lanzada cuando se intenta asignar una sala nula, vacío en blanco a una `ReunionPresencial`.
 - `EnlaceInvalidoException` — lanzada cuando se intenta asignar un enlace nulo, vacío o en blanco a una `ReunionVirtual`.
 - `ReunionException` — lanzada de forma general para diversos errores que se pueden producir en `Reunion`, se aplica a casos como iniciar una reunión que ya comenzó, finalizarla sin haber empezado, registrar asistencia cuando la reunión ya finalizó entre otros.
+
+
+### 8. Clase `GeneradorInforme`
+Se creó la clase `GeneradorInforme`que no formaba parte del UML original, para poder generar la representacion textual y fisica de todos los datos de cada reunion, que vendría a ser un archivo .txt. Se optó por usar java.nio.file (utilizando Files y Paths) para gestionar la creación y escritura de archivos .txt. La clase cuenta con un método estático que recibe un objeto abstracto Reunion, aprovechando el polimorfismo para extraer todos los datos (fecha, duración, organizador, asistencias, retrasos, ausentes, notas, etc.) sin importar si la reunión es presencial o virtual.
+
+
+### 9. Cambios en las clases `Invitacion` y `Asistencia`
+Se modificaron sus atributos principales y constructores para asociarse con la interfaz Invitable en lugar de una clase concreta. Esto permite que tanto el envío de invitaciones como el registro de presencia en cada reunión funcionen aceptando sin problemas a un Empleado, un Departamento o un InvitadoExterno.
