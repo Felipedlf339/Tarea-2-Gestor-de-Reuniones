@@ -67,3 +67,7 @@ Se creó la clase `GeneradorInforme`que no formaba parte del UML original, para 
 
 ### 9. Cambios en las clases `Invitacion` y `Asistencia`
 Se modificaron sus atributos principales y constructores para asociarse con la interfaz Invitable en lugar de una clase concreta. Esto permite que tanto el envío de invitaciones como el registro de presencia en cada reunión funcionen aceptando sin problemas a un Empleado, un Departamento o un InvitadoExterno.
+
+
+### 10. Implementación de Getters y Setters en `Invitacion`, `Retraso` y `Asistencia`
+Dado que el diagrama UML original no los incluía, se incorporaron los métodos getters y setters para los atributos de estas tres clases. Esta decisión se tomó porque era necesario para mantener los atributos privados y permitiendo que otras clases puedan acceder de forma segura a la información de los participantes/invitados y a las horas exactas de llegada.
