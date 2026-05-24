@@ -29,7 +29,7 @@ public class GeneradorInforme {
 
             writer.write("     ***** INFORME DE REUNIÓN *****     \n\n");
 
-            writer.write(" --> DATOS DE TIEMPO    \n");
+            writer.write("     DATOS DE TIEMPO    \n");
             writer.write("Fecha: " + reunion.getFecha() + "\n");
             writer.write("Hora Prevista: " + reunion.getHoraPrevista() + "\n");
             writer.write("Duración Prevista: " + reunion.getDuracionPrevista().toMinutes() + " minutos\n");
@@ -42,7 +42,7 @@ public class GeneradorInforme {
             }
 
 
-            writer.write(" --> UBICACIÓN Y TIPO    \n");
+            writer.write("     UBICACIÓN Y TIPO    \n");
             writer.write("Tipo: " + reunion.getTipo() + "\n");
 
             // Aqui se revisa si la reunión fue presencial o virtual, para anotar los datos correspondientes
@@ -57,7 +57,7 @@ public class GeneradorInforme {
             }
 
             // Aqui usamos un for para anotar a todos los que asistieron
-            writer.write(" --> ASISTENCIA Y RETRASOS    \n");
+            writer.write("     ASISTENCIA Y RETRASOS    \n");
             writer.write("Lista Asistentes:\n\n");
             List<Asistencia> asistencias = reunion.obtenerAsistencias();
             for (Asistencia a : asistencias) {
@@ -70,13 +70,13 @@ public class GeneradorInforme {
             if (!retrasos.isEmpty()) {
                 writer.write("\nDetalle de Retrasos:\n");
                 for (Retraso r : retrasos) {
-                    writer.write("  ~ " + r.toString() + " ~\n");
+                    writer.write("~ " + r.toString() + " ~\n");
                 }
             }
             writer.write("\n");
 
 
-            writer.write(" --> NOTAS DE LA REUNIÓN    \n");
+            writer.write("     NOTAS DE LA REUNIÓN    \n");
             List<Nota> notas = reunion.getNotas();
             if (notas != null && !notas.isEmpty()) {
                 for (int i = 0; i < notas.size(); i++) {
