@@ -12,7 +12,8 @@ departamentos e invitados externos, registrar asistencia y generar informes.
 
 ## UML
 
-<img width="1975" height="1529" alt="UMLtarea2" src="https://github.com/user-attachments/assets/df9cddae-ae98-4be0-b73c-40a3c9324c71" />
+<img width="2121" height="1644" alt="UMLtarea" src="https://github.com/user-attachments/assets/879d3e2e-c51c-4a72-9694-211ba85200f8" />
+
 
 
 ## Decisiones de diseño
