@@ -27,9 +27,9 @@ public class GeneradorInforme {
         // Usamos try por si llegase a haber algun error
         try (BufferedWriter writer = Files.newBufferedWriter(ruta)) {
 
-            writer.write("     ***** INFORME DE REUNIÓN *****     \n\n");
+            writer.write("     ***** INFORME DE REUNIÓN *****     \n\n\n");
 
-            writer.write("     DATOS DE TIEMPO    \n");
+            writer.write("     *DATOS DE TIEMPO*    \n");
             writer.write("Fecha: " + reunion.getFecha() + "\n");
             writer.write("Hora Prevista: " + reunion.getHoraPrevista() + "\n");
             writer.write("Duración Prevista: " + reunion.getDuracionPrevista().toMinutes() + " minutos\n");
@@ -38,11 +38,11 @@ public class GeneradorInforme {
             try {
                 writer.write("Duración Total: " + reunion.calcularTiempoReal() + " minutos\n\n");
             } catch (ReunionException e) {
-                writer.write("Duración Total: Pendiente (" + e.getMessage() + ")\n\n");
+                writer.write("Duración Total: Pendiente (" + e.getMessage() + ")\n\n\n");
             }
 
 
-            writer.write("     UBICACIÓN Y TIPO    \n");
+            writer.write("     *UBICACIÓN Y TIPO*    \n");
             writer.write("Tipo: " + reunion.getTipo() + "\n");
 
             // Aqui se revisa si la reunión fue presencial o virtual, para anotar los datos correspondientes
@@ -53,18 +53,18 @@ public class GeneradorInforme {
             } else if (reunion instanceof ReunionPresencial) {
                 ReunionPresencial rp = (ReunionPresencial) reunion;
                 writer.write("Modalidad: Presencial\n");
-                writer.write("Sala asignada: " + rp.getSala() + "\n\n");
+                writer.write("Sala asignada: " + rp.getSala() + "\n\n\n");
             }
 
             // Aqui usamos un for para anotar a todos los que asistieron
-            writer.write("     ASISTENCIA Y RETRASOS    \n");
-            writer.write("Lista Asistentes:\n\n");
+            writer.write("     *ASISTENCIA Y RETRASOS*    \n");
+            writer.write("Lista Asistentes:\n");
             List<Asistencia> asistencias = reunion.obtenerAsistencias();
             for (Asistencia a : asistencias) {
-                writer.write("- " + a.toString() + " -\n");
+                writer.write("~ " + a.toString() + " ~\n");
             }
             writer.write("Total de asistentes: " + reunion.obtenerTotalAsistencia() + "\n");
-            writer.write("Porcentaje de asistencia: " + String.format("%.2f", reunion.obtenerPorcentajeAsistencia()) + "%\n\n");
+            writer.write("Porcentaje de asistencia: " + String.format("%.2f", reunion.obtenerPorcentajeAsistencia()) + "%\n");
 
             List<Retraso> retrasos = reunion.obtenerRetrasos();
             if (!retrasos.isEmpty()) {
@@ -73,10 +73,10 @@ public class GeneradorInforme {
                     writer.write("~ " + r.toString() + " ~\n");
                 }
             }
-            writer.write("\n");
+            writer.write("\n\n");
 
 
-            writer.write("     NOTAS DE LA REUNIÓN    \n");
+            writer.write("     *NOTAS DE LA REUNIÓN*    \n");
             List<Nota> notas = reunion.getNotas();
             if (notas != null && !notas.isEmpty()) {
                 for (int i = 0; i < notas.size(); i++) {
