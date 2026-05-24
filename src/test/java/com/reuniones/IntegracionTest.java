@@ -34,10 +34,9 @@ class IntegracionTest {
         );
 
         // Se generan las invitaciones
-        reunion.getInvitaciones().add(new Invitacion(empleadoAtrasado));
-        reunion.getInvitaciones().add(new Invitacion(externoPuntual));
-        reunion.getInvitaciones().add(new Invitacion(empleadoAusente));
-
+        reunion.agregarInvitacion(new Invitacion(empleadoAtrasado));
+        reunion.agregarInvitacion(new Invitacion(externoPuntual));
+        reunion.agregarInvitacion(new Invitacion(empleadoAusente));
 
         // Inicia la reunión
         reunion.iniciar();
