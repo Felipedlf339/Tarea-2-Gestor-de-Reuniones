@@ -42,7 +42,7 @@ public class GeneradorInforme {
             }
 
 
-            writer.write("     *UBICACIÓN Y TIPO*    \n");
+            writer.write("\n     *UBICACIÓN Y TIPO*    \n");
             writer.write("Tipo: " + reunion.getTipo() + "\n");
 
             // Aqui se revisa si la reunión fue presencial o virtual, para anotar los datos correspondientes
