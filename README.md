@@ -20,7 +20,8 @@ departamentos e invitados externos, registrar asistencia y generar informes.
 
 ### 1.Interfaz `Invitable`
 Se definió la interfaz `Invitable` con el método `invitar()` para representar
-cualquier entidad que pueda ser invitada a una reunión. Esto permite tratar
+cualquier entidad que pueda ser invitada a una reunión, ademas se agregó el metodo `getCorreo()`
+para poder obtener el correo de cualquier invitado de forma uniforme, Esto permite tratar
 a `Empleado`, `Departamento` e `InvitadoExterno` de forma uniforme, sin
 necesidad de crear métodos separados para cada tipo.
 
@@ -71,3 +72,11 @@ Se modificaron sus atributos principales y constructores para asociarse con la i
 
 ### 10. Implementación de Getters y Setters en `Invitacion`, `Retraso` y `Asistencia`
 Dado que el diagrama UML original no los incluía, se incorporaron los métodos getters y setters para los atributos de estas tres clases. Esta decisión se tomó porque era necesario para mantener los atributos privados y permitiendo que otras clases puedan acceder de forma segura a la información de los participantes/invitados y a las horas exactas de llegada.
+
+### 11. Modificaciones en `Empleado` y `Departamento`
+Se agregaron validaciones en los constructores de ambas clases lanzando excepciones 
+propias (`EmpleadoSinNombreException`, `EmpleadoSinCorreoException` y 
+`DepartamentoSinNombreException`) cuando se intenta crear un objeto con nombre o 
+correo null o vacío, en vez de depender de excepciones genéricas de Java. Además 
+se agregó el atributo `correo` a `Departamento` y se implementó `getCorreo()` en 
+ambas clases para cumplir el contrato de la interfaz `Invitable`.
