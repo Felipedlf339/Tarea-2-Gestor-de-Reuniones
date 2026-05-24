@@ -7,6 +7,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase abstracta que representa una reunión.
+ */
 public abstract class Reunion {
     private LocalDate fecha;
     private LocalTime horaPrevista;
@@ -20,6 +23,14 @@ public abstract class Reunion {
     private List<Nota> notas;
     private List<Retraso> retrasos;
 
+    /**
+     * Constructor de la clase Reunion.
+     * @param fecha fecha programada de la reunión.
+     * @param horaPrevista hora programada de la reunión.
+     * @param duracionPrevista duración estimada de la reunión.
+     * @param tipo motivo de la reunión.
+     * @param organizador el empleado encargado de organizarla.
+     */
     public Reunion(LocalDate fecha, LocalTime horaPrevista, Duration duracionPrevista, TipoReunion tipo, Empleado organizador) {
         this.fecha = fecha;
         this.horaPrevista = horaPrevista;
@@ -32,6 +43,10 @@ public abstract class Reunion {
         this.retrasos = new ArrayList<>();
     }
 
+    /**
+     * Da inicio a la reunión guardando la hora actual del sistema.
+     * @throws ReunionException si intenta iniciar y la reunión ya comenzó.
+     */
     public void iniciar() throws ReunionException {
         if (this.horaInicio != null)
         {
@@ -40,6 +55,10 @@ public abstract class Reunion {
         this.horaInicio = Instant.now();
     }
 
+    /**
+     * Finaliza la reunión guardando la hora actual del sistema.
+     * @throws ReunionException si intenta finalizar antes de que empezara o después de que terminara.
+     */
     public void finalizar() throws ReunionException {
         if (this.horaInicio == null) {
             throw new ReunionException("No se puede finalizar si no ha comenzado.");
@@ -50,6 +69,11 @@ public abstract class Reunion {
         this.horaFin = Instant.now();
     }
 
+    /**
+     * Calcula la duración de la reunión en minutos.
+     * @return el tiempo de la reunión en minutos (float).
+     * @throws ReunionException si se intenta calcular y no hay hora de inicio o fin.
+     */
     public float calcularTiempoReal() throws ReunionException {
         if (horaInicio == null || horaFin == null) {
             throw new ReunionException("La reunión no ha empezado o terminado.");
@@ -57,10 +81,18 @@ public abstract class Reunion {
         return Duration.between(horaInicio, horaFin).toMinutes();
     }
 
+    /**
+     * Obtiene la lista de asistencia.
+     * @return las asistencias registradas en una lista.
+     */
     public List<Asistencia> obtenerAsistencias() {
         return asistencias;
     }
 
+    /**
+     * Calcula y a su vez obtiene la lista de invitados ausentados.
+     * @return la lista de invitados ausentes.
+     */
     public List<Invitacion> obtenerAusencias() {
         List<Invitacion> ausentes = new ArrayList<>();
 
@@ -82,14 +114,26 @@ public abstract class Reunion {
         return ausentes;
 }
 
+    /**
+     * Obtiene la lista de atrasados registrados.
+     * @return lista de atrasados a la reunión.
+     */
     public List<Retraso> obtenerRetrasos() {
         return retrasos;
     }
 
+    /**
+     * Cantidad total de asistentes a la reunión.
+     * @return entero con el número de asistentes.
+     */
     public int obtenerTotalAsistencia() {
     return asistencias.size();
 }
 
+    /**
+     * Calcula el porcentaje de asistencia respecto a las invitaciones.
+     * @return  float con el porcentaje, 0.0 si no hay invitados.
+     */
     public float obtenerPorcentajeAsistencia() {
         if (invitaciones.isEmpty())
         {
@@ -98,6 +142,11 @@ public abstract class Reunion {
         return (float) asistencias.size() / invitaciones.size() * 100;
     }
 
+    /**
+     * Para invitar a nuevos participantes a la reunión.
+     * @param invitacion la invitación que se procesará.
+     * @throws ReunionException si se intenta hacer una invitación a alguien que ya esta invitado o si la reunión ya finalizo.
+     */
     public void agregarInvitacion(Invitacion invitacion) throws ReunionException
     {
         if (this.horaFin != null) {
@@ -112,6 +161,11 @@ public abstract class Reunion {
         invitacion.getInvitado().invitar();
     }
 
+    /**
+     * Para invitar a un departamento completo.
+     * @param departamento departamento que se esta invitando.
+     * @throws ReunionException si ocurre un error al procesar las invitaciones.
+     */
     public void invitarDepartamento(Departamento departamento) throws ReunionException
     {
         if (departamento != null) {
@@ -122,6 +176,11 @@ public abstract class Reunion {
         }
     }
 
+    /**
+     * Para anotar que un participante llego a la reunión.
+     * @param participante la persona que llega a la reunión.
+     * @throws ReunionException no se puede anotar la asistencia si no ha comenzado o si ya finalizo, tampoco se pueden anotar más de una vez.
+     */
     public void agregarAsistencia(Invitable participante) throws ReunionException
     {
         if (this.horaInicio == null) {
@@ -138,6 +197,11 @@ public abstract class Reunion {
         asistencias.add(new Asistencia(participante));
     }
 
+    /**
+     * Para anotar a los que llegan atrasados y anotar su asistencia.
+     * @param retraso el registro del retraso.
+     * @throws ReunionException si la reunión no ha empezado o terminado.
+     */
     public void agregarRetraso(Retraso retraso) throws ReunionException {
         if (this.horaInicio == null)
         {
@@ -151,13 +215,16 @@ public abstract class Reunion {
         this.agregarAsistencia(retraso.getParticipante());
     }
 
-
-
+    /**
+     * Añadir una nota de texto a la reunión.
+     * @param nota nota que se va a añadir.
+     */
     public void nuevaNota(Nota nota) {
         notas.add(nota);
 
     }
 
+    // getters
     public LocalDate getFecha() {
         return fecha;
     }
@@ -186,6 +253,7 @@ public abstract class Reunion {
         return notas;
     }
 
+    //setters
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
@@ -202,6 +270,10 @@ public abstract class Reunion {
         this.organizador = organizador;
     }
 
+    /**
+     * Representación en formato de texto con los datos de la reunión.
+     * @return la información en formato string de la reunión.
+     */
     @Override
     public String toString()
     {
