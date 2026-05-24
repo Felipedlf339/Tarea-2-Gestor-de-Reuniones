@@ -12,6 +12,9 @@ departamentos e invitados externos, registrar asistencia y generar informes.
 
 ## UML
 
+<img width="1975" height="1529" alt="UMLtarea2" src="https://github.com/user-attachments/assets/df9cddae-ae98-4be0-b73c-40a3c9324c71" />
+
+
 ## Decisiones de diseño
 
 ### 1.Interfaz `invitable`
